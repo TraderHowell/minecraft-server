@@ -480,8 +480,12 @@ socket_session_is_alive() {
 # Help function, no arguments required
 help() {
 	cat <<-EOF
-	This script was designed to easily control any ${GAME} server. Almost any parameter for a given
-	${GAME} server derivative can be changed by editing the variables in the configuration file.
+	${INAME} - Simple ${GAME} server management.
+	Copyright (C) Brendan Howell <brendan@traderhowell.com>
+
+	Based on the incredible work of Gordian Edenhofer:
+	<https://github.com/Edenhofer/minecraft-server>
+ 	Copyright (C) Gordian Edenhofer <gordian.edenhofer@gmail.com>
 
 	Usage: ${INAME} {start|stop|restart|status|backup|restore|command <command>|console}
 	    start                Start the ${GAME} server
@@ -493,7 +497,6 @@ help() {
 	    command <command>    Run the given command at the ${GAME} server console
 	    console              Enter the server console through a tmux session
 
-	Copyright (c) Gordian Edenhofer <gordian.edenhofer@gmail.com>
 	EOF
 }
 
