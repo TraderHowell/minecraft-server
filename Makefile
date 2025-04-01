@@ -13,16 +13,17 @@ man1dir = $(mandir)/man1
 SOURCES = minecraftd.sh.in minecraftd.conf.in minecraftd.service.in minecraftd.sysusers.in minecraftd.tmpfiles.in minecraftd-backup.service.in minecraftd-backup.timer.in
 OBJECTS = $(SOURCES:.in=)
 
-GAME = minecraft
+GAME = Minecraft
+GAME_SLUG = minecraft
 INAME = minecraftd
-SERVER_ROOT = /srv/$(GAME)
+SERVER_ROOT = /srv/$(GAME_SLUG)
 BACKUP_DEST = $(SERVER_ROOT)/backup
 BACKUP_PATHS = world
 BACKUP_FLAGS = -z
 KEEP_BACKUPS = 10
-GAME_USER = $(GAME)
+GAME_USER = $(GAME_SLUG)
 MAIN_EXECUTABLE = server.jar
-SESSION_NAME = $(GAME)
+SESSION_NAME = $(GAME_SLUG)
 SERVER_START_CMD = java -Xms1024M -Xmx1024M -jar ./$${MAIN_EXECUTABLE} nogui
 SERVER_START_SUCCESS = done
 IDLE_SERVER = false
@@ -41,6 +42,7 @@ define replace_all
 	sed -i \
 		-e 's#@INAME@#$(INAME)#g' \
 		-e 's#@GAME@#$(GAME)#g' \
+		-e 's#@GAME_SLUG@#$(GAME_SLUG)#g' \
 		-e 's#@SERVER_ROOT@#$(SERVER_ROOT)#g' \
 		-e 's#@BACKUP_DEST@#$(BACKUP_DEST)#g' \
 		-e 's#@BACKUP_PATHS@#$(BACKUP_PATHS)#g' \
@@ -92,7 +94,7 @@ maintainer-clean: clean
 
 install:
 	$(INSTALL_PROGRAM) -D minecraftd.sh "$(DESTDIR)$(bindir)/$(INAME)"
-	$(INSTALL_DATA) -D minecraftd.conf           "$(DESTDIR)$(confdir)/$(GAME)"
+	$(INSTALL_DATA) -D minecraftd.conf           "$(DESTDIR)$(confdir)/$(GAME_SLUG)"
 	$(INSTALL_DATA) -D minecraftd.service        "$(DESTDIR)$(libdir)/systemd/system/$(INAME).service"
 	$(INSTALL_DATA) -D minecraftd-backup.service "$(DESTDIR)$(libdir)/systemd/system/$(INAME)-backup.service"
 	$(INSTALL_DATA) -D minecraftd-backup.timer   "$(DESTDIR)$(libdir)/systemd/system/$(INAME)-backup.timer"
@@ -101,7 +103,7 @@ install:
 
 uninstall:
 	rm -f "$(bindir)/$(INAME)"
-	rm -f "$(confdir)/$(GAME)"
+	rm -f "$(confdir)/$(GAME_SLUG)"
 	rm -f "$(libdir)/systemd/system/$(INAME).service"
 	rm -f "$(libdir)/systemd/system/$(INAME)-backup.service"
 	rm -f "$(libdir)/systemd/system/$(INAME)-backup.timer"

@@ -3,6 +3,7 @@
 # The actual program name (name of the interface)
 declare -r INAME="@INAME@"
 declare -r GAME="@GAME@"
+declare -r GAME_SLUG="@GAME_SLUG@"
 
 # General rule for the variable-naming-schema:
 # Variables in capital letters may be passed through the command line others not.
@@ -35,7 +36,7 @@ declare -r GAME="@GAME@"
 [[ -n "${MAX_SERVER_STOP_TIME}" ]] && declare -r MAX_SERVER_STOP_TIME=${MAX_SERVER_STOP_TIME} || MAX_SERVER_STOP_TIME="@MAX_SERVER_STOP_TIME@"
 
 # Variables passed over the command line will always override the one from a config file
-source /etc/conf.d/"@GAME@" 2>/dev/null || >&2 echo "Could not source /etc/conf.d/@GAME@"
+source /etc/conf.d/"@GAME_SLUG@" 2>/dev/null || >&2 echo "Could not source /etc/conf.d/@GAME_SLUG@"
 
 # Preserve the content of IDLE_SERVER without making it readonly
 [[ -n ${tmp_IDLE_SERVER} ]] && IDLE_SERVER=${tmp_IDLE_SERVER}
